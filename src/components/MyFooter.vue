@@ -24,6 +24,7 @@ export default {
 
 .page-main-content-bottom {
   width: 100%;
+  margin-top: 70px;
 }
 
 .footer {
@@ -41,6 +42,7 @@ export default {
   text-decoration: none;
   color: #fff;
 }
+
 a {
   text-decoration: none;
   color: #808091;

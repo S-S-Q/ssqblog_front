@@ -3,7 +3,7 @@ module.exports={
     devServer:{
         proxy: {
             '/api': {
-                target: 'http://120.78.170.193:8081',//后端接口地址
+                target: 'http://localhost:8081',//后端接口地址
                 changeOrigin: true,//是否允许跨越
                 pathRewrite: {
                     '^/api': '/'//重写,
