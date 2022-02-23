@@ -47,6 +47,8 @@
     <el-backtop>
       <i class="el-icon-arrow-up"></i>
     </el-backtop>
+
+    <MyComment :blog-id="this.$route.params.blogId"></MyComment>
   </div>
 </template>
 
@@ -55,9 +57,11 @@
 import 'highlight.js/styles/pojoaque.css'
 import 'highlightjs-line-numbers.js'
 import 'github-markdown-css'
+import MyComment from "@/components/MyComment";
 
 export default {
   name: "BlogDetail",
+  components:{MyComment},
   data(){
     return{
       msg:'',
@@ -269,6 +273,7 @@ export default {
   right: 5px;
   width: 300px;
   height: auto;
+  z-index: 100000;
 }
 
 .span-ellipsis {
@@ -296,6 +301,7 @@ export default {
   font-weight: bold;
   border-color: #01a8f9 !important;
 }
+
 
 
 </style>

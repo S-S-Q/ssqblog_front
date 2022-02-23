@@ -6,11 +6,11 @@
   <el-empty description="无搜索结果" v-show="searchAns.length===0"></el-empty>
   <el-card v-for="ans in searchAns" class="search-ans">
     <h4>
-      <router-link :to="{ name:'BlogDetail',params: {blogId: ans.id} }">
-        {{ ans.title }}
+      <router-link :to="{ name:'BlogDetail',params: {blogId: ans.id} }" v-html="ans.title">
+
       </router-link>
     </h4>
-    <p>{{ans.description}}</p>
+    <p v-html="ans.description"></p>
   </el-card>
 </el-card>
 
