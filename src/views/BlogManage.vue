@@ -84,6 +84,15 @@
 
       </el-card>
     </el-collapse-item>
+
+    <el-collapse-item name="3" class="deploy-setting">
+      <template slot="title">
+        <span class="my-collapse">统计界面</span>
+      </template>
+
+      <MyStatisticsPage></MyStatisticsPage>
+    </el-collapse-item>
+
   </el-collapse>
 
 <!--  弹出框 加入文件上传-->
@@ -113,9 +122,11 @@
 import fs from 'fs';
 import yaml from "js-yaml";
 import {Message} from "element-ui";
+import MyStatisticsPage from "@/components/MyStatisticsPage";
 
 export default {
   name: "BlogManage",
+  components: {MyStatisticsPage},
   data() {
     return {
       // 非单个禁用

@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div style="margin:0 auto;font-size:18px;font-weight:bold;">评论</div>
+    <div style="margin:0 auto;font-size:18px;font-weight:bold;" v-if="comments.length!=0">评论</div>
     <div class="comment" v-for="item in comments">
       <div class="info">
         <img class="avatar"  width="40" height="40" src="../head.png"/>
@@ -61,7 +61,10 @@ export default {
       if(result.status===200)
       {
         if(result.data.code===200)
-        Message.success(result.data.message)
+        {
+          Message.success(result.data.message)
+          this.getComment()
+        }
         else
           Message.error(result.data.message)
       }

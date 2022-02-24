@@ -6,6 +6,8 @@ import axios from './axios_cofig'
 import ElementUI, {Message} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import highlight from 'highlight.js';
+import * as echarts from 'echarts'
+
 
 
 router.beforeEach((to,from,next)=>{
@@ -41,6 +43,7 @@ Vue.directive('highlight', (el) => {
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.$echarts = echarts
 
 new Vue({
   router,
