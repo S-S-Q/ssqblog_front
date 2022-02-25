@@ -11,13 +11,13 @@
           border
           style="width: 100% ">
         <el-table-column
-            prop="IP"
+            prop="id"
             label="IP地址"
             width="180">
         </el-table-column>
 
         <el-table-column
-            prop="visit_time"
+            prop="visit_Time"
             label="日期"
             width="180">
         </el-table-column>
@@ -30,33 +30,72 @@
 </template>
 
 <script>
+import {Message} from "element-ui";
+
 export default {
   name: "MyStatisticsPage",
   data(){
     return{
-      tableData:[{"IP":"127.0.0.1","visit_time":"2022-2-24"}],
+      myChart:{},
+      tableData:[],
       echartsOption: {	// echarts选项，所有绘图数据和样式都在这里设置
         tooltip: {   //鼠标放到图上的数据展示样式
           trigger: 'axis'
         },
         series: [{
-          name: '公司市值占比',
+          name: 'IP访问统计',
           type: 'pie',
           barWidth: '60%',
-          data: [	// 扇形图数据格式： {value, name}
-            {value: 0.35, name: '腾讯'},		// value不一定是比例，echarts会自动转换
-            {value: 0.2, name: '阿里巴巴'},
-            {value: 0.25, name: '华为'},
-            {value: 0.2, name: '字节跳动'},
-          ],
+          data: [{name:"SSQ",value:2}],
         }]
       }
     }
   },
-mounted ()
-{
-  let myChart = this.$echarts.init(document.getElementById('myChart'), 'light')	// 初始化echarts, theme为light
-  myChart.setOption(this.echartsOption)	// echarts设置选项
+  methods:{
+    getTableData(){
+      this.$axios.post("/visitor/getVisitor").then(result=>{
+        if(result.status===200)
+        {
+          if(result.data.code===200)
+          {
+            this.tableData=result.data.data
+            console.log(result.data.data)
+          }
+          else
+            Message.warning(result.data.message)
+        }
+      })
+    },
+    getStaticsData(){
+      this.myChart = this.$echarts.init(document.getElementById('myChart'), 'light')	// 初始化echarts, theme为light
+      this.myChart.setOption(this.echartsOption)	// echarts设置选项
+      this.$axios.post("/visitor/getStaticsMsg").then(result=>{
+        if(result.status===200)
+        {
+
+          if(result.data.code===200)
+          {
+              this.myChart.setOption({
+                series : [
+                  {
+                    name: 'IP访问统计',
+                    type: 'pie',    // 设置图表类型为饼图
+                    radius: '60%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                    data:result.data.data
+                  }
+                ]
+              })
+          }
+          else
+            Message.warning(result.data.message)
+        }
+
+      })
+    }
+  },
+mounted() {
+  this.getStaticsData()
+  this.getTableData()
 }
 }
 </script>
